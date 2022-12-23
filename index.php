@@ -20,4 +20,4 @@ if (isset($_SESSION["permission"]) && $_SESSION["permission"] == "Error"){
 ?>
 
 
-
+<a href="./register.php" >Sign Up</a>

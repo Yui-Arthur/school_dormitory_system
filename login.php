@@ -15,20 +15,31 @@
     echo "Connected successfully";
 
 	$account = $_POST["account"];
-	$password = password_hash($_POST["password"] ,PASSWORD_DEFAULT);
 	$password = $_POST["password"];
 
 
-	$sql = "SELECT name , type FROM User WHERE account ='" . $account . "' and password='" . $password . "' ";
+	$sql = "SELECT name , type , password FROM User WHERE account ='$account'";
 
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0){
 		$user_info =  $result->fetch_assoc();
-		echo $user_info["name"];
-		$_SESSION['permission'] = $user_info["type"];
-		header("Location: ./mainpage.php");	
-		die();
+		
+
+		if (password_verify($password, $user_info["password"])) {
+			$_SESSION['permission'] = $user_info["type"];
+			$_SESSION['name'] = $user_info["name"];
+			header("Location: ./mainpage.php");	
+			die();
+
+		}
+		else{
+			$_SESSION['permission'] = "Error";
+	        header("Location: ./index.php" , 301);
+	        die();
+		}
+
+
 	}
 	else{
 		
