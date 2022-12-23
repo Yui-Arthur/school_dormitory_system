@@ -10,7 +10,6 @@
   
 	<input required type="email" placeholder="Email" name="email">  <br>
 
-	<input required type="text" placeholder="Account" name="account">  <br>
   
 	<input required type="tel" placeholder="Phone" name="phone">  <br>
 
@@ -25,6 +24,7 @@
 
 </form>
 
+<a href="./"> Sign in</a>
 
 <?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -53,6 +53,9 @@
 		
 
 		$stmt->execute();	
+
+		header("Location: ./index.php" , 301);
+        die();
 
 	}
 ?>
